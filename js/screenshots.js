@@ -21,8 +21,6 @@ if (userWidth < 561){
     mobileMod = true;
 }
 
-document.getElementById("screenshots").style.marginLeft = imgMarginleft + "px";
-
 console.log("ширина окна пользователя = "+window.innerHeight);
 
 let width = imgWidth + (imgBorderWidth * 2); //вычисляем длину картинки с учетом border'а с двух сторон картинки (+5 чтобы картинки вставали ровно)
@@ -39,6 +37,7 @@ let mainHeader = document.getElementById("main-header");
 let authorName={ //что то типо БД
     ini_ga:{
         "text": "Ini_ga", //имя автора, которое будет отображаться
+        // "link": "leafcity.ru/head/ini_ga", //ссылка на его голову (от скина)
         "link": "other-img/player-heads/ini_ga.webp", //ссылка на его голову (от скина)
         "screens_num": [0,1,2], //номера скринов, сделанных этим игроком
     },
@@ -72,7 +71,7 @@ function setBtnPos(){ //ставит кнопки для прокрутки в �
     let btnMargin = 20;
     let btnMarginTopForMobile = 30;
     
-    leftBtn.style.left = leftBtn.offsetWidth + imgMarginleft+"px";
+    leftBtn.style.left = leftBtn.offsetWidth/1.65 +"px";
     rightBtn.style.left = image[0].offsetWidth - (rightBtn.offsetWidth/1.35) +"px";
 
     if (userWidth >= 561){
@@ -120,7 +119,6 @@ let slider = document.getElementById("screenshotsBody"),
         }
         sliderTrack.style.transform = `translate3d(-${slideIndex * slideWidth}px, 0px, 0px)`;
 
-        onFocus();
         setValues();
 
         prev.classList.toggle('disabled', slideIndex === 0);
@@ -155,11 +153,11 @@ let slider = document.getElementById("screenshotsBody"),
             style = sliderTrack.style.transform,
             transform = +style.match(trfRegExp)[0];
 
-        posX2 = posX1 - evt.clientX;
-        posX1 = evt.clientX;
+            posX2 = posX1 - evt.clientX;
+            posX1 = evt.clientX;
 
-        posY2 = posY1 - evt.clientY;
-        posY1 = evt.clientY;
+            posY2 = posY1 - evt.clientY;
+            posY1 = evt.clientY;
 
         // определение действия свайп или скролл
         if (!isSwipe && !isScroll) {
@@ -200,8 +198,6 @@ let slider = document.getElementById("screenshotsBody"),
                 reachEdge();
                 return;
             }
-
-            onFocus();
             // двигаем слайд
             sliderTrack.style.transform = `translate3d(${transform - posX2}px, 0px, 0px)`;
         }
@@ -327,22 +323,6 @@ next.addEventListener("click", () => {
     slide()
 });
 
-function onFocus(){
-    closingOthers.style.display = "block";
-    
-    setTimeout(() => closingOthers.style.backgroundColor = "rgba(0,0,0,.50)", 0.01 * 1000); //нужна задержка, иначе появится резко
-    mainHeader.style.opacity = "50%";
-    // numOfBtn = num;
-}
-function offFocus(){
-    closingOthers.style.backgroundColor = "rgba(0,0,0,0)"; 
-    setTimeout(() => closingOthers.style.display = "none", 0.2 * 1000);
-    mainHeader.style.opacity = "100%";
-}
-
-let usingKeys = false;
-
-
 document.addEventListener("keydown", function(event){ //управление клавиатурой
     if (event.key == "ArrowLeft"){
         if (slideIndex != 0){
@@ -351,7 +331,6 @@ document.addEventListener("keydown", function(event){ //управление к�
         else{
             slideIndex = slides.length - 1;
         }
-        usingKeys = true;
         slide();
     }
     if (event.key == "ArrowRight"){
@@ -361,27 +340,9 @@ document.addEventListener("keydown", function(event){ //управление к�
         else{
             slideIndex = 0;
         }
-        usingKeys = true;
         slide();
     }
     if (event.key == "Escape" || event.key == "Backspace"){
-        offFocus();
-        usingKeys = false;
-    }
-});
-
-function unUsingKeys(){ //функция, чтобы не писать одно и тоже два раза
-    if (usingKeys){
-        usingKeys = false;
-        offFocus();
-    }
-}
-
-document.addEventListener("mousemove",unUsingKeys); //если  использовали стрелочки для переключения и подвигали мышкой - выключаем затемнение
-document.addEventListener("scroll",unUsingKeys); //если  использовали стрелочки для переключения и прокрутили страницу (вниз или вверх) - выключаем затемнение
-
-closingOthers.addEventListener("mouseenter", function(){ //если перелистывали картинки кнопками (на картинке), то при выходе за скрин выключаем затемение
-    if(!usingKeys){
-        offFocus();
+        
     }
 });
