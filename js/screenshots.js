@@ -1,44 +1,15 @@
-let imgWidth = 1200; //ширина картинок
-let imgBorderWidth = 10; //ширина border'а у картинок
-let imgMargin = 20; //отступ у картинок (по бокам, чтобы не занимали всю страницу)
-let imgMarginleft = 3; //марджин слева, чтобы центрировать картинки
-let userWidth = document.documentElement.clientWidth; //ширина окна браузера у пользователя (с вычитом overflow-y)
-
-let mobileMod = false; //версия для телефона
-
-//адаптация
-if (userWidth < imgWidth) {
-    imgWidth = userWidth - imgMargin; //если устройство уже 1200px, высчитываем ширину картинки
+let width = 1200; //длина картинки
+if (width > document.documentElement.clientWidth){
+    width = document.documentElement.clientWidth;
 }
-if (userWidth < 800){
-    imgBorderWidth = 5;
-    imgMarginleft = 8;
-}
-if (userWidth < 561){
-    imgBorderWidth = 0;
-    imgMarginleft = 13;
-    imgMargin = 0;
-    mobileMod = true;
-}
+document.documentElement.style.setProperty('--img-width', width + "px"); //ставим ширину картинки
 
-console.log("ширина окна пользователя = "+window.innerHeight);
-
-let width = imgWidth + (imgBorderWidth * 2); //вычисляем длину картинки с учетом border'а с двух сторон картинки (+5 чтобы картинки вставали ровно)
-let count = 1;// видимое количество изображений
-
-let list = document.getElementById("need");
-
-let closingOthers = document.getElementById("closingOthers");
-
-let author = document.getElementById("authorContainerForMobile");
-
-let mainHeader = document.getElementById("main-header");
 
 let authorName={ //что то типо БД
     ini_ga:{
         "text": "Ini_ga", //имя автора, которое будет отображаться
         // "link": "leafcity.ru/head/ini_ga", //ссылка на его голову (от скина)
-        "link": "other-img/player-heads/ini_ga.webp", //ссылка на его голову (от скина)
+        "link": "other-img/ini_ga.webp", //ссылка на его голову (от скина)
         "screens_num": [0,1,2], //номера скринов, сделанных этим игроком
     },
     noname:{
@@ -47,42 +18,17 @@ let authorName={ //что то типо БД
         "screens_num": [],
     }
 };
-let numOfScreenshot = 0;
 let authorNameResult = { //уже полученные данные
     pl_text:null,
     hd_link:null,
 };
-
-document.documentElement.style.setProperty('--img-width', imgWidth + "px"); //ставим ширину картинки
 // document.documentElement.style.setProperty('--img-border-width', imgBorderWidth + "px"); //ставим ширину border'а для картинки
 // let numOfBtn = 0;
-
-let position = 0; // положение ленты прокрутки
-
-closingOthers.style.height = window.innerHeight + "px";
-closingOthers.style.display = "none";
 
 // function getInfoAbPackage(fileName){
 //     import { authorName } from ("BDForSite/" + fileName + ".js");
 // }
 
-function setBtnPos(){ //ставит кнопки для прокрутки в нужное положение
-    let image = document.getElementsByClassName("screenshot");
-    let btnMargin = 20;
-    let btnMarginTopForMobile = 30;
-    
-    leftBtn.style.left = leftBtn.offsetWidth/1.65 +"px";
-    rightBtn.style.left = image[0].offsetWidth - (rightBtn.offsetWidth/1.35) +"px";
-
-    if (userWidth >= 561){
-        leftBtn.style.top = image[0].offsetHeight/2 + "px";
-        rightBtn.style.top = image[0].offsetHeight/2 + "px";
-    }
-    else{
-        author.style.bottom =  -btnMarginTopForMobile - btnMargin - (btnMargin/2)  + "px";
-        author.style.left = image[0].offsetWidth/1.5 - author.offsetWidth + "px";
-    }
-}
 //из интернета
 let slider = document.getElementById("screenshotsBody"),
     sliderList = document.getElementById("screenshots"),
@@ -106,7 +52,8 @@ let slider = document.getElementById("screenshotsBody"),
     nextTrf = 0,
     prevTrf = 0,
     lastTrf = --slides.length * slideWidth,
-    posThreshold = slides[0].offsetWidth * 0.35,
+    swipeRatio = 0.2, //множитель, отвечающий за то, насколько далеко нужно провести пальцем или курсором вбок, чтобы перелестнуть 
+    posThreshold = slides[0].offsetWidth * swipeRatio,
     trfRegExp = /([-0-9.]+(?=px))/,
     dontTouch = false, //не изменять slideIndex
     
@@ -121,8 +68,8 @@ let slider = document.getElementById("screenshotsBody"),
 
         setValues();
 
-        prev.classList.toggle('disabled', slideIndex === 0);
-        next.classList.toggle('disabled', slideIndex === --slides.length);
+        // prev.classList.toggle('disabled', slideIndex === 0);
+        // next.classList.toggle('disabled', slideIndex === --slides.length);
     },
     swipeStart = function() {
         let evt = getEvent();
@@ -285,7 +232,7 @@ function checkScreenshotAuthor(numOfScreenshot){ //достаем из authorNam
 
 function setValues(){
     checkScreenshotAuthor(slideIndex);
-    if(mobileMod){ //если экран меньше 561px
+    if(window.innerWidth < 561){ //если экран меньше 561px
         document.getElementById("authorNameForMobile").innerHTML= authorNameResult.pl_text;
         document.getElementById("authorHeadForMobile").src = authorNameResult.hd_link;
     }
@@ -294,8 +241,6 @@ function setValues(){
         document.getElementsByClassName("screen__author-head")[slideIndex].src = authorNameResult.hd_link;
     }
 } 
-
-document.addEventListener("DOMContentLoaded",setBtnPos);
 setValues();
 sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
 sliderList.classList.add('grab');
@@ -342,7 +287,7 @@ document.addEventListener("keydown", function(event){ //управление к�
         }
         slide();
     }
-    if (event.key == "Escape" || event.key == "Backspace"){
+    // if (event.key == "Escape" || event.key == "Backspace"){
         
-    }
+    // }
 });
