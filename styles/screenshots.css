@@ -8,11 +8,11 @@
     --author-container-height:29px;
     --author-container-padding-top-btm: 5px;
     --author-container-padding-left: 20px;
+
+    --screen-info-width: 100px;
 }
-body{
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);
-    transition-duration: .15s;
+.can-copy{
+    cursor: pointer;
 }
 #main-header{
     transition: opacity 0.2s;
@@ -149,6 +149,35 @@ body{
     justify-content: center;
     margin-top: calc(var(--author-container-height)/2);
 }
+.screen__info-container{
+    position: absolute;
+    left: calc(var(--img-width) - var(--img-btn-width)*2.5);
+    bottom: calc((var(--author-container-height) + (var(--author-container-padding-top-btm)* 2)) * 1.3);
+}
+.screen__info{
+    position: absolute;
+    background-color: var(--standart-grey);
+    border-radius: 15px 15px 0 15px;
+    border: 1px var(--opacity-grey) solid;
+    padding: 10px 20px;
+    bottom: calc(var(--img-btn-width) * 0.5);
+    right: var(--author-container-padding-left);
+    opacity: 80%;
+    display: none;
+}
+.screen__info p{
+    white-space: nowrap;
+    margin: 5px 0;
+}
+.screen__info-icon{
+    background-color: var(--standart-grey);
+    padding: 5px 12px;
+    border-radius: 360px;
+    color: var(--white);
+    opacity: 75%;
+    width: 4px;
+}
+
 @media (max-width:1000px){
     #leftBtn{
         left: calc(var(--img-btn-width));

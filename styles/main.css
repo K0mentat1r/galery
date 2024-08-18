@@ -13,6 +13,7 @@
     --standart-grey: #383a44;
     --black: #111;
     --white: #f1f1f1;
+    --opacity-grey: hsla(0, 0%, 100%, .1);
 
     --light-green:#849350;
     --light-orange: #FFDF9E;
@@ -40,10 +41,15 @@ html{
     border-radius: 10px;
     background-color: var(--black);
 }
-body{
+body {
     margin:0;
     background-color: var(--black);
-    padding: 0 calc(1vw + 1% + 1px);
+    padding: 0 calc((100vw - var(--img-width)) * 0.5 - 5%);
+}
+a, .links__links-to-sect::after{
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-duration: .15s;
 }
 a{
     text-decoration: none;
@@ -106,13 +112,14 @@ header{
     display: grid;
     grid-template-columns: 5fr 1fr;
     grid-template-rows: 1fr;
+    border-bottom: 2px solid var(--opacity-grey);
+}
+header,footer{
+    z-index: var(--header-z-index);
     align-items: center;
     justify-content: space-around;
     background-color: var(--black);
-    padding: 20px 0;
-    /* ширина ставится через скрипты */
-    z-index: var(--header-z-index);
-    border-bottom: 2px solid var(--standart-grey);
+    padding: 25px 0;
 }
 #second-header{
     position: absolute;
@@ -123,6 +130,25 @@ header{
     display: flex;
     justify-content: center;
     gap: calc(10px + 1vw);
+}
+.links__links-to-sect::after {
+    display: block;
+    content: "";
+    background-color: var(--standart-green);
+    border-radius: 8px;
+    position: relative;
+    bottom: -6px;
+    left: 50%;
+    height: 3px;
+    width: 0%;
+    transform: translateX(-50%);
+    transition: all .2s ease-in;
+}
+.links__links-to-sect:hover::after {
+    width: 100%;
+}
+.links__links-to-sect:hover {
+    color: var(--standart-green);
 }
 .links__links-to-sect{
     font-size: larger;
@@ -255,10 +281,8 @@ header{
     background-color: #4c505a;
 }
 footer{
-    background-color: var(--black);
-    border-top: 2px solid var(--standart-grey);
+    border-top: 2px solid var(--opacity-grey);
     height: max-content;
-    padding: 40px 20px;
 }
 footer *{
     color: var(--white);

@@ -1,4 +1,4 @@
-let width = 1200; //длина картинки
+let width = 1200; //ширина картинки
 if (width > document.documentElement.clientWidth){
     width = document.documentElement.clientWidth;
 }
