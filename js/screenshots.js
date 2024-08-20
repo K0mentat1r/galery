@@ -1,4 +1,4 @@
-let width = 1200; //ширина картинки
+var width = 1200; //ширина картинки
 if (width > document.documentElement.clientWidth){
     width = document.documentElement.clientWidth;
 }
@@ -9,7 +9,7 @@ let authorName={ //что то типо БД
     ini_ga:{
         "text": "Ini_ga", //имя автора, которое будет отображаться
         // "link": "leafcity.ru/head/ini_ga", //ссылка на его голову (от скина)
-        "link": "other-img/ini_ga.webp", //ссылка на его голову (от скина)
+        "link": "https://leafcity.ru/head/ini_ga", //ссылка на его голову (от скина)
         "screens_num": [0,1,2], //номера скринов, сделанных этим игроком
     },
     noname:{
@@ -32,13 +32,14 @@ let authorNameResult = { //уже полученные данные
 //из интернета
 let slider = document.getElementById("screenshotsBody"),
     sliderList = document.getElementById("screenshots"),
-    sliderTrack = document.getElementById("need");
+    sliderTrack = document.getElementById("need"),
     slides = document.getElementsByClassName("screensh-container");
     sliderTrack.style.width = slides.length * width + "px";
-    prev = document.getElementById("leftBtn");
+    prev = document.getElementById("leftBtn"),
     next = document.getElementById("rightBtn");
-    slideWidth = slides[0].offsetWidth,
-    slideIndex = 0,
+var slideWidth = slides[0].offsetWidth,
+    slideIndex = 0;
+let prevSlideIndex = 0,
     posInit = 0,
     posX1 = 0,
     posX2 = 0,
@@ -52,7 +53,7 @@ let slider = document.getElementById("screenshotsBody"),
     nextTrf = 0,
     prevTrf = 0,
     lastTrf = --slides.length * slideWidth,
-    swipeRatio = 0.2, //множитель, отвечающий за то, насколько далеко нужно провести пальцем или курсором вбок, чтобы перелестнуть 
+    swipeRatio = 0.17, //множитель, отвечающий за то, насколько далеко нужно провести пальцем или курсором вбок, чтобы перелестнуть 
     posThreshold = slides[0].offsetWidth * swipeRatio,
     trfRegExp = /([-0-9.]+(?=px))/,
     dontTouch = false, //не изменять slideIndex
@@ -96,6 +97,7 @@ let slider = document.getElementById("screenshotsBody"),
         }
     },
     swipeAction = function() {
+        // getSlideIndexToGlobal();
         let evt = getEvent(),
             style = sliderTrack.style.transform,
             transform = +style.match(trfRegExp)[0];
@@ -166,6 +168,7 @@ let slider = document.getElementById("screenshotsBody"),
 
         if (allowSwipe) {
             if (Math.abs(posFinal) > posThreshold && !dontTouch) {
+                prevSlideIndex = slideIndex;
                 if (posInit < posX1) {
                     slideIndex--;
                 } else if (posInit > posX1) {
@@ -184,6 +187,10 @@ let slider = document.getElementById("screenshotsBody"),
         } else {
             allowSwipe = true;
         }
+        // getSlideIndexToGlobal();
+        // if (slides.length > 5){ //если слайдов больше 5, то выключаем слайды, которые не видны пользователю
+        //     offInvisibleScreens()
+        // }
 
     },
     setTransform = function(transform, comapreTransform) {
@@ -199,6 +206,16 @@ let slider = document.getElementById("screenshotsBody"),
         swipeEnd();
         allowSwipe = true;
     };
+
+// function getSlideIndexToGlobal(){
+//     const infoBlock = document.createElement("span");
+//     if (document.getElementById("getInfoFromScripts").childElementCount == 0){
+//         document.getElementById("getInfoFromScripts").appendChild(infoBlock).textContent = slideIndex;
+//     }
+//     else{
+//         document.getElementById("getInfoFromScripts").children[0].textContent = slideIndex;
+//     }
+// }
 
 function checkScreenshotAuthor(numOfScreenshot){ //достаем из authorName инфу для скриншотов
     const NAME = "text";
@@ -241,6 +258,25 @@ function setValues(){
         document.getElementsByClassName("screen__author-head")[slideIndex].src = authorNameResult.hd_link;
     }
 } 
+// function offInvisibleScreens(){ //выключаем скрины, которые точно не увидит пользователь, чтобы не занимали память
+//     let Void1 = (Void = null);
+//     let Void = document.createElement("div");
+//     for(i=1;i < slides.length;i++){
+//         slides[i].replaceWith( Void );
+//     }
+//     if(prevSlideIndex == slideIndex+1){ //был переход на следующий слайд
+//         slides[prevSlideIndex].replaceWith( Void );
+//     }
+//     else if (prevSlideIndex == slideIndex-1){ //был переход на предыдущий слайд
+
+//     }
+//     else if (prevSlideIndex == slides.length -1 && slideIndex == 0){ //был переход с последнего слайда на первый
+
+//     }
+//     else if (slideIndex == slides.length -1 && prevSlideIndex == 0){ //был переход с первого слайда на последний
+
+//     }
+// }
 setValues();
 sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
 sliderList.classList.add('grab');

@@ -289,13 +289,21 @@ footer *{
 }
 .footer-top{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr min-content;
     align-items: center;
     gap: 10px;
 }
-footer p>span{
+footer .link-to-me{
     padding-bottom:0.5px;
     border-bottom: 2px solid var(--light-grey);
+}
+footer .link-to-lc img{
+    width: 45px;
+    display: flex;
+    align-items: center;
+}
+footer .link-to-lc{
+    width: fit-content;
 }
 #contactMeBody{
     display: flex;
@@ -339,6 +347,11 @@ footer p>span{
     }
 }
 
+@media (max-width:1280px){
+    body {
+        padding: 0 calc((100vw - var(--img-width)) * 0.5 + 5%);
+    }
+}
 
 @media (max-width: 1235px){
     h1{
