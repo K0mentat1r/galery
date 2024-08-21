@@ -7,6 +7,14 @@ let containers = document.getElementsByClassName("screen__info");
 
 let onContainersBtns = document.getElementsByClassName("screen__info-icon");
 
+let elems = document.getElementsByClassName("info__generate-cords"); //координаты
+let links = document.getElementsByClassName("info__server"); //ссылки на сервера
+let shaders = document.getElementsByClassName("info__shaders"); //шейдеры
+
+let elemMobile = document.getElementById("infoGenerateCordsForMobile");
+let linkMobile = document.getElementById("infoServerForMobile");
+let shaderMobile = document.getElementById("infoShaderForMobile");
+
 function copyToClipBoard(elemText, subText){
     if (subText != undefined){
         elemText = subText + elemText;
@@ -16,24 +24,33 @@ function copyToClipBoard(elemText, subText){
     .catch(err => console.error(err))
 }
 
-for(i=0;i<containers.length;i++){
-    let elem = document.getElementsByClassName("info__generate-cords")[i];
-    let link = document.getElementsByClassName("info__server")[i];
-    let shaders = document.getElementsByClassName("info__shaders")[i];
-    if (liksToServers.hasOwnProperty(link.innerHTML)){
-        if (liksToServers[link.innerHTML + "HasMap"]){
-            elem.innerHTML == "неизвестно" ? elem.classList.remove("can-copy") : elem.href = liksToServers[link.innerHTML + "Map"] + elem.innerHTML
-            link.href = liksToServers[link.innerHTML];
+function setLinks(){
+    for(i=0;i<containers.length;i++){
+        let elem = elems[i];
+        let link = links[i];
+        let shader = shaders[i];
+    
+        if (window.innerWidth > 560){
+            elem = elemMobile;
+            link = linkMobile;
+            shader = shaderMobile;
         }
-        else{
-            elem.addEventListener("click", () => copyToClipBoard(elem.innerHTML));
-            link.addEventListener("click", () => copyToClipBoard(link.innerHTML));
+    
+        if (liksToServers.hasOwnProperty(link.innerHTML)){
+            if (liksToServers[link.innerHTML + "HasMap"]){
+                elem.innerHTML == "неизвестно" ? elem.classList.remove("can-copy") : elem.href = liksToServers[link.innerHTML + "Map"] + elem.innerHTML
+                link.href = liksToServers[link.innerHTML];
+            }
+            else{
+                elem.addEventListener("click", () => copyToClipBoard(elem.innerHTML));
+                link.addEventListener("click", () => copyToClipBoard(link.innerHTML));
+            }
         }
+        else if(link.innerHTML == "нет"){
+            containers.querySelectorAll("p")[1].style.display = 'none';
+        }
+        shader.addEventListener("click", () => copyToClipBoard(shader.innerHTML, "шейдеры "));
     }
-    else if(link.innerHTML == "нет"){
-        containers.querySelectorAll("p")[1].style.display = 'none';
-    }
-    shaders.addEventListener("click", () => copyToClipBoard(shaders.innerHTML, "шейдеры "));
 }
 
 function subFuncForBtns(num){
@@ -47,13 +64,27 @@ for(i=0;i<onContainersBtns.length;i++){
     onContainersBtns[i].addEventListener("mouseenter", ()=>subFuncForBtns(a));
 }
 
-document.addEventListener("touchend",()=>{
-    if (prevSlideIndex != slideIndex){
+function setText_forMobile(){
+    elemMobile.textContent = elems[slideIndex].innerHTML;
+    linkMobile.textContent = links[slideIndex].innerHTML;
+    shaderMobile.textContent = shaders[slideIndex].innerHTML;
+    setLinks();
+}
+function checkSlideIndex(isSmallWindow){
+    if (slideIndex != prevSlideIndex){
         containers[prevSlideIndex].style.display = "none";
+        if(isSmallWindow){
+            setText_forMobile();
+        }
     }
-});
-document.addEventListener("mousedown", ()=>{
-    if (prevSlideIndex != slideIndex){
-        containers[prevSlideIndex].style.display = "none";
-    }
-});
+}
+setLinks();
+
+if (window.innerWidth > 560){
+    document.addEventListener("mousedown", ()=>checkSlideIndex(false));
+    document.addEventListener("touchstart",()=>checkSlideIndex(false));
+}
+else{
+    document.addEventListener("touchend", ()=>checkSlideIndex(true));
+    document.addEventListener("mouseup", ()=>checkSlideIndex(true));
+}

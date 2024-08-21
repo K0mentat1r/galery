@@ -244,10 +244,12 @@
                     <img id="authorHeadForMobile" class="screen__author-head" src="">
                     <h4 id="authorNameForMobile" class="screen__author-name"></h4>
                 </div>
-                <div id="screenInfoForMobile" class="screen__info" onmouseleave="this.style.display='none'">
-                    <p>Координаты: <a id="infoGenerateCordsForMobile" class="info__generate-cords can-copy" href="" target="_blank">1000,1000,1000</a></p>
-                    <p>Сервер: <a id="infoServerForMobile" class="info__server" href="" target="_blank">LeafCity</a></p>
-                    <p>Шейдеры: <span class="info__shaders can-copy">Nostalgia</span></p>
+                <div id="screenInfoContainerForMobile" class="screen__info-container">
+                    <div id="screenInfoForMobile" class="screen__info" onclick="this.style.display='none'">
+                        <p>Координаты: <a id="infoGenerateCordsForMobile" class="info__generate-cords can-copy" href="" target="_blank">0,0,0</a></p>
+                        <p>Сервер: <a id="infoServerForMobile" class="info__server" href="" target="_blank">LeafCity</a></p>
+                        <p>Шейдеры: <span id="infoShaderForMobile" class="info__shaders can-copy">Nostalgia</span></p>
+                    </div>
                     <div id="infoIcon" class="screen__info-icon">i</div>
                 </div>
             </div>

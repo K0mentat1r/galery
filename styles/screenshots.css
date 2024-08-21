@@ -179,6 +179,9 @@
     width: 28px;
     text-align: center;
 }
+#infoIcon{
+    display: none;
+}
 #copySign{
     padding: 0.5% 1%;
     position: absolute;
@@ -199,28 +202,46 @@
     header{
         padding: 30px 0px;
     }
+    .screen__author-container{
+        border-radius: 7px;
+        padding: 2px 7px;
+        gap: 10px;
+        justify-content: space-between;
+    }
+    .screenshot{
+        border-radius: 12px;
+    }
+    #screenshots{
+        border-radius: 12px;
+    }
 }
 @media (max-width: 560px){
     .img-btn{
         display: none;
     }
-    .screen__author-container{
+    .screen__author-container, .screen__info-icon{
         display: none;
-        bottom: 0;
-        left: 0;
+    }
+    #screenInfoContainerForMobile{
+        top:0;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-self: end;
+        left:0;
+    }
+    #infoIcon{
+        display: block;
     }
     #authorContainerForMobile{
         display: flex;
         align-items: center;
         justify-content: center;
+        top:0;
+        left: 0;
     }
-    .screen__info-icon{
-        display: none;
-    }
-    #infoIcon{
-        position: static;
+    .authorBlock{
         display: flex;
-        align-items: center;
-        justify-content: center;
+        justify-content: space-evenly;
     }
 }
