@@ -12,9 +12,9 @@ let authorName={ //что то типо БД
         "link": "https://leafcity.ru/head/ini_ga", //ссылка на его голову (от скина)
         "screens_num": [0,1,2], //номера скринов, сделанных этим игроком
     },
-    noname:{
+    default:{
         "text": "noname",
-        "link": "",
+        "link": "https://leafcity.ru/head/noname",
         "screens_num": [],
     }
 };
