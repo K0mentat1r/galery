@@ -143,10 +143,10 @@ let prevSlideIndex = 0,
             }
 
             // запрет протаскивания дальше одного слайда
-            if (posInit > posX1 && transform < nextTrf || posInit < posX1 && transform > prevTrf) {
-                reachEdge();
-                return;
-            }
+            // if (posInit > posX1 && transform < nextTrf || posInit < posX1 && transform > prevTrf) {
+            //     reachEdge();
+            //     return;
+            // }
             // двигаем слайд
             sliderTrack.style.transform = `translate3d(${transform - posX2}px, 0px, 0px)`;
         }
@@ -249,7 +249,7 @@ function checkScreenshotAuthor(numOfScreenshot){ //достаем из authorNam
 
 function setValues(){
     checkScreenshotAuthor(slideIndex);
-    if(window.innerWidth < 561){ //если экран меньше 561px
+    if(window.innerWidth <= 717){ //если экран меньше 717px
         document.getElementById("authorNameForMobile").innerHTML= authorNameResult.pl_text;
         document.getElementById("authorHeadForMobile").src = authorNameResult.hd_link;
     }

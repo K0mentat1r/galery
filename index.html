@@ -15,9 +15,14 @@
             <!-- <img src="img/logo.webp" class="site-logo" loading="eager"> -->
         </a>
         <div class="header__links">
-            <a href="" class="links__links-to-sect">Ссылка</a>
-            <a href="" class="links__links-to-sect">ссылка</a>
-            <a href="" class="links__links-to-sect">ссылка</a>
+            <a href="" class="links__links-to-sect">главная</a>
+            <div class="galleryLinks">
+                <span id="openMoreLinks"  class="open-links-text" onmouseenter="this.style.color = '#2e9fd2'; otherLinks.style.display = 'flex';otherLinks.classList.remove('notHoverNow')">галереи</span>
+                <div id="otherLinks" class="other-links-container" onmouseleave="openMoreLinks.style.color = 'var(--white)'; this.classList.add('notHoverNow'); setTimeout(()=>this.style.display='none',0.2*1000);">
+                    <a href="" class="links__links-to-sect">одиночный&nbsp;мир</a>
+                    <a href="" class="links__links-to-sect">leafcity</a>
+                </div>
+            </div>
         </div>
         <div class="burger-menu">
             <div class="in-burger"></div>
@@ -27,14 +32,37 @@
         <div id="menuContainer" class="popup__container">
             <div id="menuBody" class="popup__body">
                 <a class="menu-link" href="index.html">Главная</a>
-                <a class="menu-link" href="screenshots.html">Галерея</a>
+                <div class="galleryLinks">
+                    <span id="openMoreLinksMenu" class="open-links-text menu-link" onmouseenter="this.style.color = '#2e9fd2'; otherLinksMenu.style.display = 'flex';otherLinksMenu.classList.remove('notHoverNow')">Галереи</span>
+                    <div id="otherLinksMenu" class="other-links-container">
+                        <a href="" class="links__links-to-sect">Одиночный&nbsp;мир</a>
+                        <a href="" class="links__links-to-sect">LeafCity</a>
+                    </div>
+                </div>
             </div>
+            <div id="offMenu"></div>
         </div>
+        <script>
+            if(window.innerWidth > 717){
+                document.addEventListener("touchmove",function(){
+                    otherLinks.classList.add('notHoverNow');
+                    openMoreLinks.style.color = 'var(--white)';
+                    setTimeout(()=>otherLinks.style.display='none',0.2*1000);
+                });
+            }
+            else{
+                document.addEventListener("touchmove",function(){
+                    otherLinksMenu.classList.add('notHoverNow');
+                    openMoreLinksMenu.style.color = 'var(--white)';
+                    setTimeout(()=>otherLinksMenu.style.display='none',0.2*1000);
+                });
+            }
+        </script>
     </div>
     <main id="content">
-        <div id="closingOthers">
+        <!-- <div id="closingOthers">
 
-        </div>
+        </div> -->
         <h1 class="site-name">Галерея</h1>
         <div id="screenshotsBody">
             <div class="img-btn" id="leftBtn">

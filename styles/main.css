@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 @font-face {
     font-family: "Monocraft";
     src: url(minecraftfont/Monocraft.ttf) format("truetype");
@@ -55,8 +55,8 @@ a, .links__links-to-sect::after{
 a{
     text-decoration: none;
 }
-p, figcaption, a{
-    font-family: "Roboto", sans-serif;
+p, figcaption, a, span{
+    font-family: "Ubuntu", sans-serif;
     font-weight: 400;
     font-style: normal;
 
@@ -80,6 +80,12 @@ button{
     outline: none;
     transition: background-color 0.2s;
     cursor: pointer;
+}
+.notHoverNow{
+    transition: all .2s ease-in;
+}
+.notHoverNow:not(:hover){
+    opacity: 0;
 }
 .site-logo-container{
     width: 60px;
@@ -153,6 +159,9 @@ header,footer{
 }
 .links__links-to-sect{
     font-size: larger;
+}
+.open-links-text{
+    transition: all .2s ease-in;
 }
 .burger-menu{
     display: none;
@@ -234,9 +243,46 @@ header,footer{
     width: 100vw;
     border-bottom: 3px solid var(--standart-green);
 }
+#offMenu{
+    position: absolute;
+    top: 45vh;
+    left:0;
+    height: 55vh;
+    width: 100vw;
+    display: flex;
+}
 .menu-link{
     margin: 10px auto;
     font-size: x-large;
+}
+.other-links-container{
+    /* display: flex; */
+    flex-direction: column;
+    gap:20px;
+    position: absolute;
+    background-color: var(--black);
+    border: 1px solid var(--opacity-grey);
+    border-radius: 10px;
+    width: fit-content;
+    height: fit-content;
+    padding: 20px 30px;
+    display: none;
+    animation: onMoreLinks .2s ease-in;
+}
+#otherLinks{
+    top: calc(5vh + 10px);
+    right: 5vw;
+}
+#otherLinksMenu{
+    top: calc(27vh + 10px);
+    align-items: center;
+}
+.other-links-container a{
+    width: fit-content;
+}
+.galleryLinks{
+    display: flex;
+    flex-direction: column;
 }
 
 .section-name-container{
@@ -349,6 +395,16 @@ footer .link-to-lc{
         transform: translateY(calc(-100vh));
     }
 }
+@keyframes onMoreLinks {
+    0%{
+        height: 0;
+        opacity: 0;
+    }
+    100%{
+        height: 114px;
+        opacity: 100%;
+    }
+}
 
 @media (max-width:1280px){
     body {
@@ -392,7 +448,6 @@ footer .link-to-lc{
     .burger-menu{
         width: 39px;
         margin-right: 10px;
-        border-width: 2px;
     }
     header{
         padding: 30px 10px;

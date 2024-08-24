@@ -214,8 +214,6 @@
     #screenshots{
         border-radius: 12px;
     }
-}
-@media (max-width: 560px){
     .img-btn{
         display: none;
     }

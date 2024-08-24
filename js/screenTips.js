@@ -161,7 +161,7 @@ let containers = document.getElementsByClassName("screen__info");
 
 let onContainersBtns = document.getElementsByClassName("screen__info-icon");
 
-let windowWidthMaxForMobile = 560;
+let windowWidthMaxForMobile = 717;
 
 let seedHaveEventListener = false;
 

@@ -81,7 +81,7 @@ function checkVisibleMainHeader(){
 
 openMenu[0].addEventListener("click", () => MenuController(0));
 // openMenu[1].addEventListener("click", () => MenuController(1));
-menuContainer.addEventListener("click", ()=>offPopUp());
+document.getElementById("offMenu").addEventListener("click", ()=>offPopUp());
 
 checkVisibleMainHeader();
 let wasUserWinPos = 0; //нужно, чтобы если открылось вспл. окно запомнить последнюю позицию по y
