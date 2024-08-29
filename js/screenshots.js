@@ -61,9 +61,14 @@ let prevSlideIndex = 0,
     getEvent = function() {
         return (event.type.search('touch') !== -1) ? event.touches[0] : event;
     },
-    slide = function() {
+    slide = function() { //надо будет сделать расчет таймингов на основе того, как пользователь делает свайп
         if (transition) {
-            sliderTrack.style.transition = 'transform .5s';
+            if (window.innerWidth > 717){
+                sliderTrack.style.transition = 'transform .65s';
+            }
+            else{
+                sliderTrack.style.transition = 'transform .65s cubic-bezier(0,0,.19,.95)';
+            }
         }
         sliderTrack.style.transform = `translate3d(-${slideIndex * slideWidth}px, 0px, 0px)`;
 
@@ -142,11 +147,11 @@ let prevSlideIndex = 0,
                allowSwipe = true;
             }
 
-            // запрет протаскивания дальше одного слайда
-            // if (posInit > posX1 && transform < nextTrf || posInit < posX1 && transform > prevTrf) {
-            //     reachEdge();
-            //     return;
-            // }
+            //запрет протаскивания дальше одного слайда
+            if (posInit > posX1 && transform < nextTrf || posInit < posX1 && transform > prevTrf) {
+                reachEdge();
+                return;
+            }
             // двигаем слайд
             sliderTrack.style.transform = `translate3d(${transform - posX2}px, 0px, 0px)`;
         }
